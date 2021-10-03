@@ -1,10 +1,10 @@
 import "./Step.css";
 
-const Step = () => {
+const Step = ({ value }) => {
   return (
     <div className="step">
-      <p className="step_text">+1</p>
-      <div className="dotted_line"></div>
+      <p className="step_text">+{value}</p>
+      <div className="dashed_line"></div>
     </div>
   );
 };

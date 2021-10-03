@@ -1,12 +1,17 @@
 .box {
-  background-color: #36b881;
-  width: 75%;
+  background-color: #da4040;
+  width: 70%;
   height: 60px;
   color: white;
   font-weight: bold;
-  font-size: 40px;
+  font-size: 35px;
+  cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.active {
+  background-color: #36b881;
 }

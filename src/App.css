@@ -4,17 +4,20 @@
 }
 
 .head {
-  height: 30vh;
+  height: 20vh;
   width: 100%;
 }
 
 .game {
+  height: 80vh;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
+
+  align-items: end;
 }
 
 .tubes {
-  height: 70vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -24,6 +27,14 @@
 
 .steps {
   height: 100%;
+  display: grid;
+  grid-template-rows: repeat(9, 1fr) 10%;
+
+  align-items: end;
+}
+
+.step {
+  height: 10%;
 }
 
 .text-white {

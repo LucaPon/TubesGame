@@ -1,7 +1,14 @@
 import "./Box.css";
 
-const Box = () => {
-  return <div className="box">13.6</div>;
+const Box = ({ tube, boxPressed }) => {
+  return (
+    <div
+      className={`box ${tube.active && "active"}`}
+      onClick={() => boxPressed(tube.id)}
+    >
+      {tube.weight}
+    </div>
+  );
 };
 
 export default Box;

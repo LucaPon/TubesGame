@@ -1,11 +1,14 @@
 import Box from "../Box/Box";
 import "./Tube.css";
 
-const Tube = () => {
+const Tube = ({ tube, boxPressed }) => {
   return (
-    <div className="tube">
-      <Box className="box" />
-      <div className="water"></div>
+    <div className="tube_container">
+      <div className="tube" />
+      <div className="container">
+        <Box className="box" tube={tube} boxPressed={boxPressed} />
+        <div className="water"></div>
+      </div>
     </div>
   );
 };
