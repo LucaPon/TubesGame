@@ -1,0 +1,15 @@
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.step_text {
+  color: white;
+  text-align: end;
+}
+
+.dotted_line {
+  border-bottom: 3px dashed white;
+  width: 50px;
+}
