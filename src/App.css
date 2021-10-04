@@ -4,16 +4,35 @@
 }
 
 .head {
-  height: 20vh;
+  height: 30vh;
   width: 100%;
 }
 
 .game {
-  height: 80vh;
+  height: 70vh;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-
   align-items: end;
+}
+
+.text-white {
+  color: white;
+  font-weight: bold;
+  font-size: 55px;
+  text-align: center;
+}
+
+button {
+  background-color: #302985;
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
+  padding: 10px 20px;
+  border: none;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  cursor: pointer;
 }
 
 .tubes {
@@ -35,11 +54,4 @@
 
 .step {
   height: 10%;
-}
-
-.text-white {
-  color: white;
-  font-weight: bold;
-  font-size: 55px;
-  text-align: center;
 }
