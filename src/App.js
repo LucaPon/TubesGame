@@ -12,32 +12,29 @@ function App() {
   const [startTime, setStartTime] = useState(null);
 
   const getRandomWeight = () => Math.floor((Math.random() * 4 + 1) * 10) / 10;
-  const getRandomSpeed = () => Math.floor(Math.random() * 1000 + 500);
+  const getRandomSpeed = () => Math.random() * 6 + 4; //da 4 a 6% ogni secondo
 
   const [tubes, setTubes] = useState([
     {
       id: 0,
       weight: getRandomWeight(),
-      speed: getRandomSpeed(),
+      speedMultiplier: getRandomSpeed(),
       active: true,
-      waterLevel: 0,
-      intervalFunction: null,
+      waterLevel: 100,
     },
     {
       id: 1,
       weight: getRandomWeight(),
-      speed: getRandomSpeed(),
+      speedMultiplier: getRandomSpeed(),
       active: true,
       waterLevel: 0,
-      intervalFunction: null,
     },
     {
       id: 2,
       weight: getRandomWeight(),
-      speed: getRandomSpeed(),
+      speedMultiplier: getRandomSpeed(),
       active: true,
       waterLevel: 0,
-      intervalFunction: null,
     },
   ]);
 
@@ -51,55 +48,27 @@ function App() {
     setIsRunning(!isRunning);
   };
 
-  const startTubesUpdate = () => {
-    setTubes(
-      tubes.map((tube) => {
-        var intervalFunction = setInterval(() => {
-          if (startTime !== null) {
-            console.log(Date.now() - startTime);
-          }
-          setTubes(
-            tubes.map((tube) => ({
-              ...tube,
-              waterLevel: 10,
-            }))
-          );
-        }, 300);
-
-        return { ...tube, intervalFunction: intervalFunction };
-      })
-    );
-  };
-
   const startGame = () => {
     setIsFirstStart(false);
     setStartTime(Date.now());
-
-    startTubesUpdate();
   };
 
   const stopGame = () => {
     setStartTime(null);
-
-    tubes.forEach((tube) => {
-      clearInterval(tube.intervalFunction);
-    });
-
+    setTimeRemaining(30);
     setTubes(
       tubes.map((tube) => ({
         ...tube,
         active: true,
         waterLevel: 0,
-        weight: isFirstStart ? getRandomWeight() : tube.weight,
+        weight: isFirstStart ? tube.weight : getRandomWeight(),
         speed: getRandomSpeed(),
-        intervalFunction: null,
       }))
     );
   };
 
   useEffect(() => {
     //check game running
-
     if (isRunning) {
       startGame();
     } else {
@@ -108,27 +77,40 @@ function App() {
   }, [isRunning]);
 
   useEffect(() => {
-    console.log(startTime - Date.now());
-
     let interval = null;
 
     if (isRunning && startTime != null && timeRemaining > 0) {
       interval = setInterval(() => {
-        setTimeRemaining(
-          timerTotal - Math.floor((Date.now() - startTime) / 1000)
+        var msFromStart = Date.now() - startTime;
+
+        setTubes(
+          tubes.map((tube) =>
+            tube.active
+              ? {
+                  ...tube,
+                  waterLevel:
+                    (msFromStart / 1000) * tube.speedMultiplier > 100
+                      ? 100
+                      : (msFromStart / 1000) * tube.speedMultiplier,
+                }
+              : tube
+          )
         );
-      }, 500);
+
+        setTimeRemaining(timerTotal - Math.floor(msFromStart / 1000));
+      }, 10);
     } else {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [startTime, timeRemaining]);
+  }, [startTime, timeRemaining, tubes]);
 
   return (
     <div className="App">
       <div className="head">
         <h1 className="text-white">
-          {Math.floor(timeRemaining / 60)}:{timeRemaining % 60}
+          {("0" + Math.floor(timeRemaining / 60)).slice(-2)}:
+          {("0" + (timeRemaining % 60)).slice(-2)}
         </h1>
         <h1 className="text-white">GOAL: 45</h1>
         <button onClick={togglePlay}>{isRunning ? "STOP" : "START"}</button>
@@ -142,6 +124,7 @@ function App() {
         </div>
 
         <div className="steps">
+          <Step className="step" value="10" />
           <Step className="step" value="9" />
           <Step className="step" value="8" />
           <Step className="step" value="7" />

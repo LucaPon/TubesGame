@@ -6,7 +6,7 @@ const Box = ({ tube, boxPressed }) => {
       className={`box ${tube.active && "active"}`}
       onClick={() => boxPressed(tube.id)}
     >
-      {tube.weight}
+      {Math.floor((tube.weight + tube.waterLevel / 10) * 10) / 10}
     </div>
   );
 };

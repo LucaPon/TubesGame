@@ -6,8 +6,9 @@ const Tube = ({ tube, boxPressed }) => {
     <div className="tube_container">
       <div className="tube" />
       <div className="container">
-        <Box className="box" tube={tube} boxPressed={boxPressed} />
-        <div style={{ height: tube.waterLevel + "%" }} className="water"></div>
+        <div style={{ height: tube.waterLevel + "%" }} className="water">
+          <Box className="box" tube={tube} boxPressed={boxPressed} />
+        </div>
       </div>
     </div>
   );
