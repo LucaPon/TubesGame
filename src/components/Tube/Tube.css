@@ -25,6 +25,9 @@
 }
 
 .water {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: white;
   height: 0%;
   width: 100%;
@@ -34,6 +37,16 @@
 .box {
   position: absolute;
   top: -70px;
-  left: 50%;
-  transform: translateX(-50%);
+  animation: float infinite;
+  animation-duration: 1s;
+  animation-direction: alternate;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(4%);
+  }
 }
