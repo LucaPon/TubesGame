@@ -6,6 +6,9 @@
 .head {
   height: 30vh;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .game {
@@ -15,23 +18,23 @@
   align-items: end;
 }
 
-.text-white {
+h1 {
   color: white;
   font-weight: bold;
-  font-size: 55px;
+  font-size: 45px;
   text-align: center;
 }
 
 button {
+  display: inline;
+  padding: 10px 20px;
+  margin: 10px auto;
+
   background-color: #302985;
   color: white;
   font-weight: bold;
-  font-size: 40px;
-  padding: 10px 20px;
+  font-size: 30px;
   border: none;
-  display: block;
-  margin: auto;
-  margin-top: 20px;
   cursor: pointer;
 }
 

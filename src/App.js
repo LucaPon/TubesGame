@@ -18,6 +18,8 @@ function App() {
   const [isFirstStart, setIsFirstStart] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(TIMER_TOTAL);
   const [startTime, setStartTime] = useState(null);
+  const [totalWeight, setTotalWeight] = useState(0);
+  const [showResult, setShowResult] = useState(false);
 
   const getRandomWeight = () => Math.floor((Math.random() * 4 + 1) * 10) / 10;
   const getRandomSpeed = () => Math.random() + 3;
@@ -65,6 +67,8 @@ function App() {
   const resetGame = () => {
     setStartTime(null);
     setTimeRemaining(TIMER_TOTAL);
+    setTotalWeight(0);
+    setShowResult(false);
     setTubes(
       tubes.map((tube) => ({
         ...tube,
@@ -94,6 +98,19 @@ function App() {
     let interval = null;
 
     if (gameStatus === Status.RUNNING) {
+      var totalWeight = tubes.reduce(
+        (accum, item) =>
+          accum + Math.floor((item.weight + item.waterLevel / 10) * 10) / 10,
+        0
+      );
+
+      setTotalWeight(Math.floor(totalWeight * 10) / 10);
+
+      if (totalWeight > WEIGHT_GOAL) {
+        setShowResult(true);
+        setGameStatus(Status.PAUSED);
+      }
+
       if (timeRemaining === 0) {
         setTubes(
           tubes.map((tube) => {
@@ -104,6 +121,7 @@ function App() {
 
       if (tubes.filter((tube) => tube.active).length === 0) {
         setGameStatus(Status.PAUSED);
+        setShowResult(true);
       }
 
       if (startTime !== null && timeRemaining > 0) {
@@ -128,16 +146,6 @@ function App() {
           setTimeRemaining(TIMER_TOTAL - Math.floor(msFromStart / 1000));
         }, 10);
       }
-
-      var actualWeight = tubes.reduce(
-        (accum, item) =>
-          accum + Math.floor((item.weight + item.waterLevel / 10) * 10) / 10,
-        0
-      );
-
-      if (actualWeight > WEIGHT_GOAL) {
-        setGameStatus(Status.PAUSED);
-      }
     } else {
       clearInterval(interval);
     }
@@ -148,11 +156,25 @@ function App() {
   return (
     <div className="App">
       <div className="head">
-        <h1 className="text-white">
-          {("0" + Math.floor(timeRemaining / 60)).slice(-2)}:
-          {("0" + (timeRemaining % 60)).slice(-2)}
+        {!showResult && (
+          <h1>
+            {("0" + Math.floor(timeRemaining / 60)).slice(-2)}:
+            {("0" + (timeRemaining % 60)).slice(-2)}
+          </h1>
+        )}
+
+        <h1>
+          {!showResult
+            ? "OBIETTIVO : " + WEIGHT_GOAL
+            : totalWeight > WEIGHT_GOAL
+            ? "HAI PERSO!!"
+            : "HAI VINTO!!"}
         </h1>
-        <h1 className="text-white">GOAL: {WEIGHT_GOAL}</h1>
+
+        {showResult && (
+          <h1>{"PUNTEGGIO: " + totalWeight + "/" + WEIGHT_GOAL}</h1>
+        )}
+
         <button onClick={togglePlay}>
           {gameStatus === Status.STOPPED
             ? "START"
