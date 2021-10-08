@@ -22,6 +22,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  overflow: hidden;
 }
 
 .water {
@@ -34,9 +35,28 @@
   position: relative;
 }
 
+.wave {
+  position: absolute;
+  top: -15px;
+  background: url(../../assets/wave.png);
+  width: 240px;
+  height: 15px;
+  animation: slide 4s linear infinite;
+}
+
+.wave::before {
+  content: "";
+  position: absolute;
+  width: 240px;
+  height: 15px;
+  background: url(../../assets/wave.png);
+  animation: slide-reverse 4s linear infinite;
+  opacity: 0.6;
+}
+
 .box {
   position: absolute;
-  top: -70px;
+  top: -65px;
   animation: float infinite;
   animation-duration: 1s;
   animation-direction: alternate;
@@ -48,5 +68,23 @@
   }
   100% {
     transform: translateY(4%);
+  }
+}
+
+@keyframes slide {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 240px;
+  }
+}
+
+@keyframes slide-reverse {
+  0% {
+    background-position: 240px;
+  }
+  100% {
+    background-position: 0;
   }
 }
