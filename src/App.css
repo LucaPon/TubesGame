@@ -27,13 +27,16 @@ button {
   display: inline;
   padding: 10px 20px;
   margin: 10px auto;
-
   background-color: #302985;
   color: white;
   font-weight: bold;
   font-size: 30px;
   border: none;
   cursor: pointer;
+}
+
+button:hover {
+  background-color: #4036b6;
 }
 
 .tubes {
@@ -89,15 +92,8 @@ button {
   }
 
   button {
-    display: inline;
     padding: 5px 10px;
     margin: 10px auto;
-
-    background-color: #302985;
-    color: white;
-    font-weight: bold;
     font-size: 25px;
-    border: none;
-    cursor: pointer;
   }
 }
