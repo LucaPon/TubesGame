@@ -1,18 +1,16 @@
 .App {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 30% 70%;
+  height: 100vh;
 }
 
 .head {
-  height: 30vh;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  place-self: center;
 }
 
 .game {
-  height: 70vh;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   align-items: end;
@@ -21,7 +19,7 @@
 h1 {
   color: white;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 40px;
   text-align: center;
 }
 
@@ -40,10 +38,9 @@ button {
 
 .tubes {
   height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: flex-end;
   grid-column: 2 / 3;
 }
@@ -58,4 +55,49 @@ button {
 
 .step {
   height: 10%;
+}
+
+@media only screen and (min-width: 850px) {
+  .App {
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: 1fr;
+    height: 100vh;
+  }
+
+  .tubes {
+    grid-column: 1/3;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .App {
+    display: grid;
+    grid-template-rows: 35% 65%;
+    height: 100vh;
+  }
+
+  .tubes {
+    grid-column: 1/4;
+  }
+
+  .steps {
+    display: none;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  button {
+    display: inline;
+    padding: 5px 10px;
+    margin: 10px auto;
+
+    background-color: #302985;
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    border: none;
+    cursor: pointer;
+  }
 }

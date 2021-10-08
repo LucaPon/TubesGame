@@ -1,5 +1,5 @@
 .tube_container {
-  width: 120px;
+  width: 100px;
   height: 100%;
   position: relative;
 }
@@ -22,7 +22,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  overflow: hidden;
 }
 
 .water {
@@ -35,12 +34,19 @@
   position: relative;
 }
 
-.wave {
+.wave_container {
   position: absolute;
   top: -15px;
+  width: 100%;
+  overflow: hidden;
+
+  height: 15px;
+}
+
+.wave {
   background: url(../../assets/wave.png);
   width: 240px;
-  height: 15px;
+  height: 100%;
   animation: slide 4s linear infinite;
 }
 
@@ -86,5 +92,11 @@
   }
   100% {
     background-position: 0;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .tube_container {
+    width: 80px;
   }
 }

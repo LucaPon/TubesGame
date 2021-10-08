@@ -11,8 +11,13 @@ function App() {
     STOPPED: "STOPPED",
   };
 
+  const getRandomWeightGoal = () =>
+    Math.floor((Math.random() * 5 + 30) * 10) / 10;
+  const getRandomWeight = () => Math.floor((Math.random() * 4 + 1) * 10) / 10;
+  const getRandomSpeed = () => Math.random() * 3 + 3; //acqua aumenta da 3 a 6 % ogni secondo
+
   const TIMER_TOTAL = 30;
-  const WEIGHT_GOAL = 15;
+  const [weightGoal, setWeightGoal] = useState(getRandomWeightGoal());
 
   const [gameStatus, setGameStatus] = useState(Status.STOPPED);
   const [isFirstStart, setIsFirstStart] = useState(true);
@@ -20,9 +25,6 @@ function App() {
   const [startTime, setStartTime] = useState(null);
   const [totalWeight, setTotalWeight] = useState(0);
   const [showResult, setShowResult] = useState(false);
-
-  const getRandomWeight = () => Math.floor((Math.random() * 4 + 1) * 10) / 10;
-  const getRandomSpeed = () => Math.random() + 3;
 
   const [tubes, setTubes] = useState([
     {
@@ -69,6 +71,7 @@ function App() {
     setTimeRemaining(TIMER_TOTAL);
     setTotalWeight(0);
     setShowResult(false);
+    setWeightGoal(getRandomWeightGoal());
     setTubes(
       tubes.map((tube) => ({
         ...tube,
@@ -106,7 +109,7 @@ function App() {
 
       setTotalWeight(Math.floor(totalWeight * 10) / 10);
 
-      if (totalWeight > WEIGHT_GOAL) {
+      if (totalWeight > weightGoal) {
         setShowResult(true);
         setGameStatus(Status.PAUSED);
       }
@@ -165,14 +168,14 @@ function App() {
 
         <h1>
           {!showResult
-            ? "OBIETTIVO : " + WEIGHT_GOAL
-            : totalWeight > WEIGHT_GOAL
-            ? "HAI PERSO!!"
-            : "HAI VINTO!!"}
+            ? "Obiettivo: " + weightGoal
+            : totalWeight > weightGoal
+            ? "HAI PERSO!!!"
+            : "HAI VINTO!!!"}
         </h1>
 
         {showResult && (
-          <h1>{"PUNTEGGIO: " + totalWeight + "/" + WEIGHT_GOAL}</h1>
+          <h1>{"Punteggio: " + totalWeight + "/" + weightGoal}</h1>
         )}
 
         <button onClick={togglePlay}>
@@ -183,7 +186,6 @@ function App() {
             : "STOP"}
         </button>
       </div>
-
       <div className="game">
         <div className="tubes">
           <Tube tube={tubes[0]} boxPressed={boxPressed} />
