@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="63.5mm"
+   height="3.96875mm"
+   viewBox="0 0 63.5 3.96875"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="wave.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="3.1108586"
+     inkscape:cx="126.65314"
+     inkscape:cy="64.45166"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <sodipodi:guide
+       position="-23.454805,-275.5285"
+       orientation="0,-1"
+       id="guide853" />
+    <sodipodi:guide
+       position="-65.43289,-282.38452"
+       orientation="0,-1"
+       id="guide945" />
+    <sodipodi:guide
+       position="120.28105,-291.16504"
+       orientation="1,0"
+       id="guide980" />
+    <sodipodi:guide
+       position="0,-292.72869"
+       orientation="1,0"
+       id="guide982" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect714"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+  </defs>
+  <g
+     inkscape:label="Livello 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-3.4037811)">
+    <path
+       style="fill:#ffffff;stroke-width:0.0313901"
+       d="M 0,6.5313563 V 5.6901658 L 0.12605945,5.658541 C 0.3568398,5.6006447 2.8462466,5.0750615 3.9673352,4.8475404 7.9521799,4.0388305 10.988216,3.6175664 14.08361,3.4438627 c 0.848754,-0.047629 3.408313,-0.054528 4.236343,-0.011418 0.780091,0.040614 2.102405,0.1491531 2.884326,0.2367521 2.228345,0.249645 3.971342,0.5452715 9.41171,1.596306 4.257705,0.8225515 5.458315,1.0399397 7.121773,1.2895066 2.199363,0.3299706 3.968516,0.5130424 6.135481,0.6349032 1.002662,0.056388 4.764752,0.056867 5.858778,7.353e-4 2.790889,-0.1431558 5.257752,-0.3663979 8.540298,-0.7728648 0.796459,-0.098622 3.815135,-0.4972742 4.68475,-0.6186779 0.360662,-0.05035 0.479223,-0.059416 0.506318,-0.038717 0.01941,0.014865 0.03577,0.3836783 0.03609,0.8195864 L 63.5,7.372531 H 31.750071 0 Z"
+       id="path3243"
+       inkscape:export-filename="C:\Users\lucap\Desktop\path3243.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </g>
+</svg>

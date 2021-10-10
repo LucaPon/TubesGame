@@ -10,5 +10,10 @@ body {
   font-family: "Poppins", sans-serif;
   background-color: #141138;
   width: 100%;
+  min-height: 100vh;
+}
+
+html,
+#root {
   height: 100vh;
 }

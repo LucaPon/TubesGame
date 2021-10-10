@@ -1,6 +1,7 @@
 import "./App.css";
 import Step from "./components/Step/Step";
 import Tube from "./components/Tube/Tube";
+import rotateIcon from "./assets/rotate.png";
 
 import React, { useState, useEffect } from "react";
 
@@ -158,6 +159,10 @@ function App() {
 
   return (
     <div className="App">
+      <div className="rotate">
+        <img src={rotateIcon} />
+      </div>
+
       <div className="head">
         {!showResult && (
           <h1>
@@ -167,11 +172,10 @@ function App() {
         )}
 
         <h1>
-          {!showResult
-            ? "Obiettivo: " + weightGoal
-            : totalWeight > weightGoal
-            ? "HAI PERSO!!!"
-            : "HAI VINTO!!!"}
+          {showResult && totalWeight > weightGoal && "HAI PERSO!!!"}
+          {showResult && totalWeight === weightGoal && "HAI VINTO!!!"}
+          {(!showResult || totalWeight < weightGoal) &&
+            "Obiettivo: " + weightGoal}
         </h1>
 
         {showResult && (
