@@ -36,15 +36,14 @@
 
 .wave_container {
   position: absolute;
-  top: -15px;
+  top: -14px;
   width: 100%;
   overflow: hidden;
-
   height: 15px;
 }
 
 .wave {
-  background: url(../../assets/wave.png);
+  background: url(../../assets/wave.svg);
   width: 240px;
   height: 100%;
   animation: slide 4s linear infinite;
@@ -55,7 +54,7 @@
   position: absolute;
   width: 240px;
   height: 15px;
-  background: url(../../assets/wave.png);
+  background: url(../../assets/wave.svg);
   animation: slide-reverse 4s linear infinite;
   opacity: 0.6;
 }
