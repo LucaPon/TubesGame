@@ -13,11 +13,20 @@ function App() {
   };
 
   const getRandomWeightGoal = () =>
-    Math.floor((Math.random() * 5 + 30) * 10) / 10;
-  const getRandomWeight = () => Math.floor((Math.random() * 4 + 1) * 10) / 10;
-  const getRandomSpeed = () => Math.random() * 3 + 3; //acqua aumenta da 3 a 6 % ogni secondo
+    Math.floor((Math.random() * 5 + 30) * 10) / 10; // l'obiettivo da raggiungere è un valore random che va da 30 a 35
+  const getRandomWeight = () => Math.floor((Math.random() * 4 + 2) * 10) / 10; // Il peso iniziale di ogni cassa è un valore random che va da 2 a 5
+  const getRandomSpeed = () => Math.random() * 3 + 3; //la velocità in cui aumenta il liquido è un valore random che va da 3 a 6 e rappresenta la % di aumento al secondo (totale 100%)
+  const createTube = (id) => {
+    return {
+      id: id,
+      weight: getRandomWeight(),
+      speedMultiplier: getRandomSpeed(),
+      active: true,
+      waterLevel: 0,
+    };
+  };
 
-  const TIMER_TOTAL = 30;
+  const TIMER_TOTAL = 30; //secondi di countdown
   const [weightGoal, setWeightGoal] = useState(getRandomWeightGoal());
 
   const [gameStatus, setGameStatus] = useState(Status.STOPPED);
@@ -28,27 +37,9 @@ function App() {
   const [showResult, setShowResult] = useState(false);
 
   const [tubes, setTubes] = useState([
-    {
-      id: 0,
-      weight: getRandomWeight(),
-      speedMultiplier: getRandomSpeed(),
-      active: true,
-      waterLevel: 0,
-    },
-    {
-      id: 1,
-      weight: getRandomWeight(),
-      speedMultiplier: getRandomSpeed(),
-      active: true,
-      waterLevel: 0,
-    },
-    {
-      id: 2,
-      weight: getRandomWeight(),
-      speedMultiplier: getRandomSpeed(),
-      active: true,
-      waterLevel: 0,
-    },
+    createTube(0),
+    createTube(1),
+    createTube(2),
   ]);
 
   const boxPressed = (id) => {
@@ -79,7 +70,7 @@ function App() {
         active: true,
         waterLevel: 0,
         weight: isFirstStart ? tube.weight : getRandomWeight(),
-        speed: getRandomSpeed(),
+        speedMultiplier: getRandomSpeed(),
       }))
     );
 
@@ -98,32 +89,63 @@ function App() {
     }
   };
 
+  const computeTotalWeight = () => {
+    //restituisce il peso totale ( somma dei pesi delle scatole )
+    return tubes.reduce(
+      (accum, item) =>
+        accum + Math.floor((item.weight + item.waterLevel / 10) * 10) / 10,
+      0
+    );
+  };
+
+  const deactivateTubes = () => {
+    setTubes(
+      tubes.map((tube) => {
+        return { ...tube, active: false };
+      })
+    );
+  };
+
+  const getWaterLevel = (msFromStart, speedMultiplier) => {
+    var newWaterLevel = (msFromStart / 1000) * speedMultiplier;
+    return newWaterLevel > 100 ? 100 : newWaterLevel;
+  };
+
+  const updateTubesWaterLevel = (msFromStart) => {
+    //se i tubi sono attivi aggiorno il livello del liquido in base allo speedMultiplier e al tempo trascorso da inizio gioco
+    setTubes(
+      tubes.map((tube) =>
+        tube.active
+          ? {
+              ...tube,
+              waterLevel: getWaterLevel(msFromStart, tube.speedMultiplier),
+              active: tube.waterLevel !== 100 && tube.active,
+            }
+          : tube
+      )
+    );
+  };
+
   useEffect(() => {
     let interval = null;
 
     if (gameStatus === Status.RUNNING) {
-      var totalWeight = tubes.reduce(
-        (accum, item) =>
-          accum + Math.floor((item.weight + item.waterLevel / 10) * 10) / 10,
-        0
-      );
-
+      var totalWeight = computeTotalWeight();
       setTotalWeight(Math.floor(totalWeight * 10) / 10);
 
       if (totalWeight > weightGoal) {
+        //se il totale supera il valore dell'obiettivo
         setShowResult(true);
         setGameStatus(Status.PAUSED);
       }
 
       if (timeRemaining === 0) {
-        setTubes(
-          tubes.map((tube) => {
-            return { ...tube, active: false };
-          })
-        );
+        //se termina il countdown
+        deactivateTubes();
       }
 
       if (tubes.filter((tube) => tube.active).length === 0) {
+        //se non ci sono più tubi attivi
         setGameStatus(Status.PAUSED);
         setShowResult(true);
       }
@@ -131,22 +153,7 @@ function App() {
       if (startTime !== null && timeRemaining > 0) {
         interval = setInterval(() => {
           var msFromStart = Date.now() - startTime;
-
-          setTubes(
-            tubes.map((tube) =>
-              tube.active
-                ? {
-                    ...tube,
-                    waterLevel:
-                      (msFromStart / 1000) * tube.speedMultiplier > 100
-                        ? 100
-                        : (msFromStart / 1000) * tube.speedMultiplier,
-                    active: tube.waterLevel !== 100 && tube.active,
-                  }
-                : tube
-            )
-          );
-
+          updateTubesWaterLevel(msFromStart);
           setTimeRemaining(TIMER_TOTAL - Math.floor(msFromStart / 1000));
         }, 10);
       }
